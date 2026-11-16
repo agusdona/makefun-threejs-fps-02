@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>LONGWAVE</title>
+<link rel="icon" href="data:,">
+<style>
+:root{--canvas:#0d1320;--surface:#1b2431;--hairline:#33404f;--ink:#e8ddc8;--muted:#8d8f8c;--accent:#ffa63d;--rust:#b5562c;--cyan:#4fd6e0;--sand:#8a7254;--asphalt:#2c3039;--mono:ui-monospace,monospace}
+*{box-sizing:border-box;margin:0;padding:0}html,body{width:100%;height:100%;overflow:hidden;background:var(--canvas);color:var(--ink);font:13px var(--mono);user-select:none}
+#view{position:fixed;inset:0;width:100%;height:100%;display:block}#hud{position:fixed;inset:0;pointer-events:none;text-shadow:0 1px 3px #000}
+#top{position:absolute;top:18px;left:50%;transform:translateX(-50%);display:flex;gap:22px;align-items:center;background:#0d1320bb;padding:9px 16px;border-bottom:1px solid var(--hairline)}
+#score{color:var(--accent)}#timer{font-size:18px}#alive{color:var(--cyan)}#crosshair{position:absolute;left:50%;top:50%;width:18px;height:18px;transform:translate(-50%,-50%)}
+#crosshair:before,#crosshair:after{content:"";position:absolute;background:var(--ink)}#crosshair:before{width:2px;height:18px;left:8px}#crosshair:after{height:2px;width:18px;top:8px}
+#bottom{position:absolute;bottom:22px;left:26px;display:flex;gap:24px;align-items:end}#vitals{font-size:20px}#health{color:var(--cyan)}#armor{color:var(--ink)}#money{color:var(--accent);font-size:15px}
+#ammo{position:absolute;right:28px;bottom:22px;text-align:right;font-size:24px}#weapon{font-size:12px;color:var(--muted)}#device{position:absolute;top:76px;left:50%;transform:translateX(-50%);color:var(--accent)}
+#minimap{position:absolute;right:20px;top:18px;width:150px;height:110px;border:1px solid var(--hairline);background:#0d1320bb}#killfeed{position:absolute;right:20px;top:140px;width:260px;text-align:right;color:var(--ink)}#hitmarker{position:absolute;left:50%;top:50%;color:white;font-size:24px;display:none}
+#roundmsg{position:absolute;top:28%;width:100%;text-align:center;font-size:26px;color:var(--accent)}
+#overlay{position:absolute;inset:0;display:grid;place-items:center;background:#0d1320b8;pointer-events:auto}#panel{width:min(500px,90vw);padding:28px;border:1px solid var(--hairline);background:var(--surface);text-align:center}#panel h1{font-size:32px;color:var(--accent);margin-bottom:12px}#panel p{color:var(--muted);margin:8px 0}#buy{display:none;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(520px,92vw);padding:20px;background:var(--surface);border:1px solid var(--hairline);pointer-events:auto}#buy h2{color:var(--accent);margin-bottom:12px}.buygrid{display:grid;grid-template-columns:1fr 1fr;gap:6px}.buyitem{display:flex;justify-content:space-between;align-items:center;min-height:38px;padding:7px 9px;border:1px solid var(--hairline);background:#111a24;color:var(--ink);font:12px var(--mono);cursor:pointer}.buyitem:hover{border-color:var(--accent)}.buyitem:disabled{opacity:.4;cursor:not-allowed}#blind{position:fixed;inset:0;z-index:4;background:#fff;opacity:0;pointer-events:none;transition:opacity .2s}#status{position:absolute;left:26px;top:18px;color:var(--cyan)}#hud>*:not(#blind){z-index:6}#blind{z-index:5}
+@media(max-width:600px){#top{gap:10px;padding:7px;font-size:11px}#minimap{width:112px;height:82px;right:10px;top:56px}#bottom{left:12px;bottom:12px;gap:12px}#ammo{right:12px;bottom:12px}}
+</style>
+</head>
+<body>
+<canvas id="view"></canvas><div id="blind"></div>
+<div id="hud">
+  <div id="top"><span id="score">VANGUARD 0 : 0 WARDENS</span><span id="timer">01:40</span><span id="alive">5 vs 5</span></div>
+  <div id="status">ROUND 1 / BUY PHASE</div><div id="device">DEVICE: SAFE</div>
+  <div id="crosshair"></div><span id="hitmarker">+</span><div id="roundmsg"></div>
+  <div id="bottom"><div id="vitals"><span id="health">100</span> / <span id="armor">0</span></div><div id="money">$800</div></div>
+  <div id="ammo"><span id="count">12 / 36</span><div id="weapon">P9 SERVICE</div></div>
+  <canvas id="minimap" width="300" height="220"></canvas><div id="killfeed"></div>
+  <section id="buy"><h2>FIELD SUPPLY</h2><div id="buygrid" class="buygrid"></div></section>
+  <div id="overlay"><div id="panel"><h1>LONGWAVE</h1><p>LONGWAVE STATION // HIGH DESERT</p><p>VANGUARD vs WARDENS</p><p>CLICK TO DEPLOY</p></div></div>
+</div>
+<script type="importmap">{"imports":{"three":"./vendor/three/three.module.min.js"}}</script>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
